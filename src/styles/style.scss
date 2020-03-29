@@ -1,0 +1,12 @@
+// Commons
+
+// Normalize default styles browsers
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+@import '~bootstrap/scss/reboot';
+
+// Import common applications styles
+@import 'common/typography';
+@import 'common/buttons';
+@import 'common/fonts';
+@import 'common/forms';

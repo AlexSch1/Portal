@@ -1,0 +1,58 @@
+
+
+
+
+
+<div class="one">
+
+  <ng-container *ngIf="edit">
+    <form [formGroup]="form">
+    
+    
+      <div>
+        <p>вопрос:</p>
+        <input type="text" formControlName="ask">
+      </div>
+    
+      <div class="arr" formArrayName="arr">
+        
+
+        <div *ngFor="let item of arr.controls; let i=index">
+
+          <p>ответы {{i + 1}}</p>
+          <input type="text" [formControlName]="i">
+          <button (click)="removeField(i)">Удалить этот вариант</button>
+        </div>
+
+
+        <button (click)="add()">Добавить вариант</button>
+
+      </div>
+    </form>
+    <div>
+      <button (click)="done()">Готово</button>
+      
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="!edit">
+
+
+    <p>{{form.controls.ask.value}}</p>
+
+    <div>
+      <div *ngFor="let item of arr.controls; let i=index">
+        <span>ответы {{i + 1}}</span>
+        <span>{{item.value}}</span>
+        <br>
+      </div>
+    </div>
+
+    <button (click)="editCard()">Изменить</button>
+    <button (click)="delete()">Удалить</button>
+
+  </ng-container>
+  
+
+</div>
