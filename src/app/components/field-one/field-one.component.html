@@ -3,34 +3,49 @@
 
 
 
-<div class="one">
+<div class="field-radio">
 
   <ng-container *ngIf="edit">
     <form [formGroup]="form">
     
     
-      <div>
-        <p>вопрос:</p>
-        <input type="text" formControlName="ask">
-      </div>
+        <mat-form-field class="head">
+          <mat-label>Введите вопрос</mat-label>
+          <input matInput formControlName="ask">
+        </mat-form-field>
     
       <div class="arr" formArrayName="arr">
         
 
         <div *ngFor="let item of arr.controls; let i=index">
 
-          <p>ответы {{i + 1}}</p>
+          <div class="field-row">
+            <!-- <mat-icon class="icon-checkbox" aria-hidden="false" aria-label="Example home icon">panorama_fish_eye</mat-icon> -->
+            <mat-form-field class="">
+              <mat-label>Oтветы {{i + 1}}</mat-label>
+              <input matInput [formControlName]="i">
+            </mat-form-field>
+            <button mat-icon-button aria-label="Example icon-button with a heart icon">
+              <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="removeField(i)">clear</mat-icon>
+            </button>
+          </div>
+          <!-- <p>ответы {{i + 1}}</p>
           <input type="text" [formControlName]="i">
-          <button (click)="removeField(i)">Удалить этот вариант</button>
+          <button (click)="removeField(i)">Удалить этот вариант</button> -->
         </div>
 
 
-        <button (click)="add()">Добавить вариант</button>
+        <!-- <button (click)="add()">Добавить вариант</button> -->
+        <div class="btn-add">
 
+          <button mat-stroked-button (click)="done()" class="">Готово</button>
+          <button mat-stroked-button (click)="add()" class="">Добавить новое поле</button>
+        </div>
+          
       </div>
     </form>
     <div>
-      <button (click)="done()">Готово</button>
+      <!-- <button (click)="done()">Готово</button> -->
       
     </div>
 
@@ -39,18 +54,18 @@
   <ng-container *ngIf="!edit">
 
 
-    <p>{{form.controls.ask.value}}</p>
+    <p class="text">{{form.controls.ask.value}}</p>
 
-    <div>
-      <div *ngFor="let item of arr.controls; let i=index">
-        <span>ответы {{i + 1}}</span>
+      <div class="preview" *ngFor="let item of arr.controls; let i=index">
+        <mat-icon class="icon-checkbox" aria-hidden="false" aria-label="Example home icon">panorama_fish_eye</mat-icon>
         <span>{{item.value}}</span>
         <br>
       </div>
-    </div>
 
-    <button (click)="editCard()">Изменить</button>
-    <button (click)="delete()">Удалить</button>
+      <div class="actions">
+        <button mat-stroked-button (click)="editCard()" class="">Изменить</button>
+        <button mat-stroked-button (click)="delete()" class="">Удалить</button>
+      </div>
 
   </ng-container>
   

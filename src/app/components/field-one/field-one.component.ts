@@ -27,7 +27,7 @@ export class FieldOneComponent implements OnInit {
   public ngOnInit() {
     // console.log('---', this)
     this.form = this.fb.group({
-      ask: ['Выберети цвет', Validators.required],
+      ask: ['Выберете цвет', Validators.required],
       arr: this.fb.array([
         this.fb.control('красный', Validators.required),
         this.fb.control('синий', Validators.required),

@@ -1,31 +1,48 @@
-<div class="wrapper">
-    <div class="title"> title </div>
+<div class="container">
+    <!-- <div class="title"> title </div> -->
     <div class="content">
 
+        <!-- <div class="content__col"> -->
         <div class="content__col">
+
             <div>
-                <p>Тип вопроса</p>
-                <button mat-stroked-button (click)="survey_1()">Первый вариант +</button>
+                <!-- <p>Тип вопроса</p> -->
+                <!-- <button mat-stroked-button (click)="survey_1()">Первый вариант +</button>
                 <button mat-stroked-button disabled>Первый вариант +</button>
-                <button mat-stroked-button disabled>Первый вариант +</button>
+                <button mat-stroked-button disabled>Первый вариант +</button> -->
             </div>
     
             <br><br>
     
     
             <ng-template host-container></ng-template>
+            <app-field-one></app-field-one>
     
     
             <br>
-            <button mat-stroked-button (click)="create()">Создать</button>
-        </div>
+            <!-- <button mat-stroked-button (click)="create()">Создать</button> -->
 
-        <div class="content__col content__col_black">
-            <app-view-congig></app-view-congig>
+            <div class="actions">
+                <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">Добавить новый вопрос</button>
+            </div>
+            <mat-menu #menu="matMenu">
+                <div>
+                    <button mat-menu-item (click)="survey_1()">Варианты ответа</button>
+                    <button mat-menu-item disabled>Поле комментарий</button>
+                    <button mat-menu-item disabled>Флажки</button>
+                </div>
+            </mat-menu>
+
         </div>
+        
+        <!-- </div> -->
+
+        <!-- <div class="content__col content__col_black">
+            <app-view-congig></app-view-congig>
+        </div> -->
 
         
 
     </div>
-    <div class="footer"> footer </div>
+    <!-- <div class="footer"> footer </div> -->
 </div>
