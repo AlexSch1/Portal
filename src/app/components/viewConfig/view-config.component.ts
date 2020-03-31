@@ -4,7 +4,6 @@ import { BuilderService } from './../../builder.service';
 import { FormFieldType, FormConfig } from './../../../libs/dynamic-forms/src/lib/interfaces/form.interface';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { type } from 'os';
 import { FormConstructor } from 'src/libs/dynamic-forms/src';
 
 @Component({

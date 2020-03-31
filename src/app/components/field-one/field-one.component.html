@@ -1,73 +1,59 @@
-
-
-
-
-
-<div class="field-radio">
-
-  <ng-container *ngIf="edit">
+<div class="field-radio w-75 mb-5 p-4" [class.field-radio_hover]="!edit">
+  <div class="field-radio__constructor" *ngIf="edit">
     <form [formGroup]="form">
-    
-    
-        <mat-form-field class="head">
+      <div class="field-radio__title mb-4">
+        <mat-form-field class="w-100">
           <mat-label>Введите вопрос</mat-label>
-          <input matInput formControlName="ask">
+          <input matInput formControlName="ask" autocomplete="off" />
         </mat-form-field>
-    
-      <div class="arr" formArrayName="arr">
-        
-
-        <div *ngFor="let item of arr.controls; let i=index">
-
-          <div class="field-row">
-            <!-- <mat-icon class="icon-checkbox" aria-hidden="false" aria-label="Example home icon">panorama_fish_eye</mat-icon> -->
-            <mat-form-field class="">
-              <mat-label>Oтветы {{i + 1}}</mat-label>
-              <input matInput [formControlName]="i">
+      </div>
+      <div
+        class="field-radio__form-arrays d-flex flex-column mb-5"
+        formArrayName="arr"
+      >
+        <div *ngFor="let item of getArraysGroup.controls; let i = index">
+          <div class="d-flex align-items-center">
+            <mat-form-field class="w-100 mr-4">
+              <mat-label>Oтветы {{ i + 1 }}</mat-label>
+              <input matInput [formControlName]="i" autocomplete="off" />
             </mat-form-field>
-            <button mat-icon-button aria-label="Example icon-button with a heart icon">
-              <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="removeField(i)">clear</mat-icon>
+            <button mat-icon-button>
+              <mat-icon
+                aria-hidden="false"
+                aria-label="Example home icon"
+                (click)="removeField(i)"
+                >clear</mat-icon
+              >
             </button>
           </div>
-          <!-- <p>ответы {{i + 1}}</p>
-          <input type="text" [formControlName]="i">
-          <button (click)="removeField(i)">Удалить этот вариант</button> -->
         </div>
-
-
-        <!-- <button (click)="add()">Добавить вариант</button> -->
-        <div class="btn-add">
-
-          <button mat-stroked-button (click)="done()" class="">Готово</button>
-          <button mat-stroked-button (click)="add()" class="">Добавить новое поле</button>
-        </div>
-          
+      </div>
+      <div class="field-radio__actions d-flex justify-content-end">
+        <button mat-stroked-button (click)="saveChanges()" class="mr-3">Готово</button>
+        <button mat-stroked-button (click)="addNewField()">
+          Добавить новое поле
+        </button>
       </div>
     </form>
-    <div>
-      <!-- <button (click)="done()">Готово</button> -->
-      
+  </div>
+  <div class="field-radio__preview" *ngIf="!edit">
+    <p class="field-radio__title-preview">{{ form.controls.ask.value }}</p>
+    <div class="field-radio__preview-content mb-5">
+      <div class="mb-2" *ngFor="let item of getArraysGroup.controls; let i = index">
+        <mat-icon
+          class="mr-3"
+          aria-hidden="false"
+          aria-label="Example home icon"
+          >panorama_fish_eye</mat-icon
+        >
+        <span>{{ item.value }}</span>
+      </div>
     </div>
-
-  </ng-container>
-
-  <ng-container *ngIf="!edit">
-
-
-    <p class="text">{{form.controls.ask.value}}</p>
-
-      <div class="preview" *ngFor="let item of arr.controls; let i=index">
-        <mat-icon class="icon-checkbox" aria-hidden="false" aria-label="Example home icon">panorama_fish_eye</mat-icon>
-        <span>{{item.value}}</span>
-        <br>
-      </div>
-
-      <div class="actions">
-        <button mat-stroked-button (click)="editCard()" class="">Изменить</button>
-        <button mat-stroked-button (click)="delete()" class="">Удалить</button>
-      </div>
-
-  </ng-container>
-  
-
+    <div class="field-radio__actions d-flex justify-content-end">
+      <button mat-stroked-button (click)="editCard()" class="mr-3">
+        Изменить
+      </button>
+      <button mat-stroked-button (click)="delete()">Удалить</button>
+    </div>
+  </div>
 </div>

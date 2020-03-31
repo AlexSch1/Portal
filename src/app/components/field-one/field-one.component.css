@@ -1,47 +1,20 @@
-.arr {
-    /* padding: 10px; */
-    display: flex;
-    flex-direction: column;
-}
-
-.head {
-    /* border-bottom: 1px solid #eef1f5; */
-}
-
-mat-form-field {
-    width: 100%;
-}
-.field-row {
-    display: flex;
-    align-items: center;
-}
-.icon-checkbox {
-    margin-right: 10px;
-}
-.btn-add {
-    align-self: flex-end;
-}
 .field-radio{
     border: 1px solid #e7ecf1;
     border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 20px;
 }
-.text {
+
+
+.field-radio__title-preview {
     margin: 20px 0;
     font-size: 18px;
     font-weight: bold;
 }
-.preview {
-    margin-bottom: 20px;
-}
 
-.preview mat-icon {
+mat-icon {
     vertical-align: middle;
 }
 
-.actions {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+
+.field-radio_hover:hover {
+    background-color: #00000008;
 }
