@@ -1,0 +1,87 @@
+<div class="form-group {{ wrapperClasses }}">
+    <div class="" [ngClass]="{ 'has-error': invalid, 'is-valid': valid }" *ngIf="edit else prevCard">
+      <label class="w-100 control-label" [attr.for]="field.attrs.id" *ngIf="field.label">
+        {{ field.label  }}
+      </label>
+      <div class=" row align-items-center">
+        <div class="col-11">
+
+          <ng-template msFormHost></ng-template>
+
+
+          <ng-container
+            *ngTemplateOutlet="inputTpl; context: { valueChanges: valueChanges$ | async, touchedChanged: touchedChanged$ | async }"
+          ></ng-container>
+
+
+          <ng-template #inputTpl>
+            <input
+              [id]="id"
+              [name]="name"
+              [type]="field.attrs.type || 'text'"
+              [formControl]="formControl"
+              class="form-control {{ classes }}"
+              [class.is-invalid]="invalid"
+              [placeholder]="field.attrs.placeholder ? (field.attrs.placeholder ) : ''"
+              [autocomplete]="field.attrs.autocomplete"
+              (blur)="onBlur()"
+            />
+            
+          </ng-template>
+
+
+
+          <!-- <ng-container *ngIf="grouped">
+            <ng-container *ngFor="let inlineControl of formControl.controls | keyvalue">
+              <ng-container *ngIf="inlineControl.value.errors && inlineControl.value.touched">
+                <div class="form-error" *ngIf="getError(inlineControl.value.errors) as error">
+                  <span class="form-error-text">
+                    {{ getErrorLabel(error)  }}
+                  </span>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!grouped">
+            <ng-container *ngIf="formControl.errors && formControl.touched">
+              <div class="form-error" *ngIf="getError(formControl.errors) as error">
+                <span class="form-error-text">
+                  {{ getErrorLabel(error)  }}
+                </span>
+              </div>
+            </ng-container>
+          </ng-container> -->
+        </div>
+          <div class="col-1">
+            <button>X</button>
+          </div>        
+      </div>
+    </div>
+
+
+    <ng-template #prevCard>
+      <!-- <div>
+        <p class="field-radio__title-preview">{{ form.controls.ask.value }}</p>
+        <div class="field-radio__preview-content mb-5">
+          <div class="mb-2" *ngFor="let item of getArraysGroup.controls; let i = index">
+            <mat-icon
+              class="mr-3"
+              aria-hidden="false"
+              aria-label="Example home icon"
+              >panorama_fish_eye</mat-icon
+            >
+            <span>{{ item.value }}</span>
+          </div>
+        </div>
+        <div class="field-radio__actions d-flex justify-content-end">
+          <button mat-stroked-button (click)="editCard()" class="mr-3">
+            Изменить
+          </button>
+          <button mat-stroked-button (click)="delete()">Удалить</button>
+        </div>
+
+      </div> -->
+    </ng-template>
+
+
+</div>

@@ -1,15 +1,13 @@
 <div class="survey">
-    <!-- <div class="title"> title </div> -->
-    <div class="container">
-
-        <!-- <div class="content__col"> -->
+    
+   <div class="container">
+  
         <div class="row">
             <div class="col">
 
                 <div class="content ">
                     <div class="survey__content">
                         <ng-template host-container></ng-template>
-                        <!-- <app-field-one></app-field-one> -->
                     </div>
     
                     <div class="survey__actions w-100 d-flex justify-content-center">
@@ -17,7 +15,7 @@
                     </div>
                     <mat-menu #menu="matMenu">
                         <div>
-                            <button mat-menu-item (click)="survey_1()">Варианты ответа</button>
+                            <button mat-menu-item (click)="survey_1()">Радио кнопки</button>
                             <button mat-menu-item disabled>Поле комментарий</button>
                             <button mat-menu-item disabled>Флажки</button>
                         </div>
@@ -26,6 +24,11 @@
 
             </div>
         </div>
+        <button (click)="save()">Save</button>
 
+    </div> 
+    <div class="survey3333333">
+
+        <!-- <app-view-congig></app-view-congig> -->
     </div>
 </div>

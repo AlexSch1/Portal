@@ -1,5 +1,6 @@
+import { FieldInputDevComponent } from './../components/field-input-dev/field-input-dev.component';
 import { ComponentFactory, ComponentFactoryResolver, ComponentRef, Injectable, Type, ViewContainerRef } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 import { FieldCheckboxComponent } from '../components/field-checkbox/field-checkbox.component';
 import { FieldDateComponent } from '../components/field-date/field-date.component';
@@ -14,6 +15,7 @@ import { FieldTextareaComponent } from '../components/field-textarea/field-texta
 import { FieldTypeheadComponent } from '../components/field-typehead/field-typehead.component';
 import { FieldWrapperComponent } from '../components/field-wrapper/field-wrapper.component';
 import { FormConstructor } from '../interfaces/form-constructor.interface';
+
 import {
   FormConfig,
   FormField,
@@ -24,6 +26,8 @@ import {
   FormFieldWrapperType,
   FormGroupField
 } from '../interfaces/form.interface';
+import { FieldWrapperDevComponent } from '../components/field-wrapper-dev/field-wrapper-dev.component';
+import { WrapperDevComponent } from '../components/wrapper-dev/wrapper-dev.component';
 
 @Injectable()
 export class BaseFormConstructor implements FormConstructor {
@@ -32,26 +36,40 @@ export class BaseFormConstructor implements FormConstructor {
    */
   private updating: { [key: string]: boolean } = {};
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(private componentFactoryResolver: ComponentFactoryResolver , private fb: FormBuilder) {}
 
   registerControls(formConfig: FormConfig, formGroup: FormGroup): void {
     // Create form fields
+    
     formConfig.fields.forEach(field => {
       if ('fields' in field) {
         field.fields.forEach(inlineField => {
           this.createControl(inlineField, formGroup);
         });
       } else {
+        
         this.createControl(field, formGroup);
       }
     });
     formConfig.refs = {};
   }
 
-  renderControls(formConfig: FormConfig, formGroup: FormGroup, viewContainer: ViewContainerRef): void {
-    // Create form components
-    
-    formConfig.fields.forEach(field => {
+  registerOne(field: any, formGroup: FormGroup): void {
+    this.createControl(field, formGroup);
+  }
+
+  renderControlsDev(formConfig: FormConfig, formGroup: FormGroup, viewContainer: ViewContainerRef): void {
+    let componentFactory;
+    if (formConfig.dev) {
+      componentFactory = this.componentFactoryResolver.resolveComponentFactory(WrapperDevComponent);
+      const wrapRef: any = viewContainer.createComponent(componentFactory);
+      const viewContainerWrap = wrapRef.instance.formHost;
+      viewContainer = viewContainerWrap.viewContainerRef;
+      this.setGroupWrapperProps(wrapRef,null, formConfig, formGroup, null)
+    }
+
+
+    formConfig.fields.forEach((field, index) => {
       
       if ('fields' in field) {
         if (typeof field.hide === 'function') {
@@ -71,23 +89,66 @@ export class BaseFormConstructor implements FormConstructor {
             this.removeFieldComponent(field, formConfig, formGroup, viewContainer);
           }
         } else {
+            // if (field.key === 'title2') {
+            //   this.createControl(field, formGroup);
+            // }
           this.createFieldComponent(field, formConfig, formGroup, viewContainer);
         }
       }
     });
   }
 
+  renderControls(formConfig: FormConfig, formGroup: FormGroup, viewContainer: ViewContainerRef): void {
+    // Create form components
+    // debugger
+    formConfig.fields.forEach((field, index) => {
+      
+      if ('fields' in field) {
+        if (typeof field.hide === 'function') {
+          if (!field.hide({ fieldGroup: field, formControl: formGroup.get(field.key), formGroup })) {
+            this.createGroupFieldComponent(field, formConfig, formGroup, viewContainer);
+          } else {
+            this.removeGroupFieldComponent(field, formConfig, formGroup, viewContainer);
+          }
+        } else {
+          // this.removeGroupFieldComponent(field, formConfig, formGroup, viewContainer);
+          this.createGroupFieldComponent(field, formConfig, formGroup, viewContainer);
+        }
+      } else if (field.type !== FormFieldType.Hidden) {
+        if (typeof field.hide === 'function') {
+          if (!field.hide({ field, formControl: formGroup.get(field.key), formGroup })) {
+            this.createFieldComponent(field, formConfig, formGroup, viewContainer);
+          } else {
+            this.removeFieldComponent(field, formConfig, formGroup, viewContainer);
+          }
+        } else {
+          // console.log('2-------------', formGroup )
+          // if (bol) {
+            if (field.key === 'title22') {
+              this.createControl(field, formGroup);
+            }
+          // }
+          // field.key = 'q' + index
+          this.createFieldComponent(field, formConfig, formGroup, viewContainer);
+        }
+      }
+    });
+  }
+
+
+
   updateControls(formConfig: FormConfig, formGroup: FormGroup, viewContainer: ViewContainerRef): void {
     console.log(formConfig)
     // this.removeFieldComponent(formConfig.fields[5], formConfig, formGroup, viewContainer);
 
 
-    return
+    // return
     if (!this.updating[formConfig.id]) {
       // console.log('+++++++++', formConfig.id)
       this.updating[formConfig.id] = true;
       let index = 0;
       formConfig.fields.forEach(field => {
+        
         if ('fields' in field) {
           if (typeof field.hide === 'function') {
             if (field.hide({ fieldGroup: field, formControl: formGroup.get(field.key), formGroup })) {
@@ -198,11 +259,20 @@ export class BaseFormConstructor implements FormConstructor {
     viewContainer: ViewContainerRef,
     index?: number
   ): void {
-    const wrapperRef = this.getWrapperComponent(field, formConfig, viewContainer, index);
-    const fieldRef = this.getComponent(field, formConfig, wrapperRef.instance.formHost.viewContainerRef);
+    // debugger
+    if (field.key === 'title2') {
+      const fieldRef = this.getComponent(field, formConfig, viewContainer);
+  
+      this.setComponentProps(fieldRef, field, formConfig, formGroup);
 
-    this.setComponentProps(wrapperRef, field, formConfig, formGroup);
-    this.setComponentProps(fieldRef, field, formConfig, formGroup);
+    } else {
+      const wrapperRef = this.getWrapperComponent(field, formConfig, viewContainer, index);
+      // const fieldRef = this.getComponent(field, formConfig, wrapperRef.instance.formHost.viewContainerRef);
+  
+      this.setComponentProps(wrapperRef, field, formConfig, formGroup);
+      // this.setComponentProps(fieldRef, field, formConfig, formGroup);
+    }
+    
   }
 
   /**
@@ -294,6 +364,7 @@ export class BaseFormConstructor implements FormConstructor {
 
     const controls = {};
     field.fields.forEach(inlineField => {
+      // this.removeGroupInlineFieldComponent(inlineField, formConfig, formGroup, wrapperViewContainerRef);
       if (!formGroup.get(field.key)) {
         this.createControl(inlineField, formGroup);
       }
@@ -381,7 +452,11 @@ export class BaseFormConstructor implements FormConstructor {
           break;
         }
         case FormFieldType.Input: {
-          componentFactory = this.componentFactoryResolver.resolveComponentFactory(FieldInputComponent);
+            componentFactory = this.componentFactoryResolver.resolveComponentFactory(FieldInputComponent);
+          break;
+        }
+        case FormFieldType.InputDev: {
+            componentFactory = this.componentFactoryResolver.resolveComponentFactory(FieldInputDevComponent);
           break;
         }
         case FormFieldType.InputMask: {
@@ -440,6 +515,10 @@ export class BaseFormConstructor implements FormConstructor {
 
     if (type) {
       switch (type as FormFieldWrapperType) {
+        case FormFieldWrapperType.Dev: {
+          componentFactory = this.componentFactoryResolver.resolveComponentFactory(FieldWrapperDevComponent);
+          break;
+        }
         case FormFieldWrapperType.Default: {
           componentFactory = this.componentFactoryResolver.resolveComponentFactory(FieldWrapperComponent);
           break;

@@ -1,9 +1,9 @@
 <div class="form-group {{ wrapperClasses }}">
-  <div class="row" [ngClass]="{ 'has-error': invalid, 'is-valid': valid }">
-    <label class="col-sm-4 col-md-3 control-label" [attr.for]="field.attrs.id" *ngIf="field.label">
+  <div class="" [ngClass]="{ 'has-error': invalid, 'is-valid': valid }">
+    <label class=" control-label" [attr.for]="field.attrs.id" *ngIf="field.label">
       {{ field.label  }}
     </label>
-    <div class="col-sm-8 col-md-9">
+    <div class="">
       <ng-template msFormHost></ng-template>
       <ng-container *ngIf="grouped">
         <ng-container *ngFor="let inlineControl of formControl.controls | keyvalue">

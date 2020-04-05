@@ -1,3 +1,5 @@
+import { WrapperDevComponent } from './components/wrapper-dev/wrapper-dev.component';
+import { FieldInputDevComponent } from './components/field-input-dev/field-input-dev.component';
 import { FieldCheckboxComponent } from './components/field-checkbox/field-checkbox.component';
 import { FieldDateComponent } from './components/field-date/field-date.component';
 import { FieldEmptyWrapperComponent } from './components/field-empty-wrapper/field-empty-wrapper.component';
@@ -14,6 +16,7 @@ import { FormHostDirective } from './directives/form-host.directive';
 import { InputMaskDirective } from './directives/input-mask.directive';
 import { InputRangeDirective } from './directives/input-range.directive';
 import { InputUcfirstDirective } from './directives/input-ucfirst.directive';
+import { FieldWrapperDevComponent } from './components/field-wrapper-dev/field-wrapper-dev.component';
 
 export const formsLiteComponents: any[] = [FormComponent];
 
@@ -28,7 +31,10 @@ export const formsLiteEntryComponents: any[] = [
   FieldRadioComponent,
   FieldSelectComponent,
   FieldTextareaComponent,
-  FieldWrapperComponent
+  FieldWrapperComponent,
+  FieldWrapperDevComponent,
+  FieldInputDevComponent,
+  WrapperDevComponent,
 ];
 
 export const formsLiteDirectives: any[] = [FormHostDirective, InputMaskDirective, InputRangeDirective, InputUcfirstDirective];

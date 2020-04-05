@@ -1,6 +1,8 @@
 <ng-container
   *ngTemplateOutlet="inputTpl; context: { valueChanges: valueChanges$ | async, touchedChanged: touchedChanged$ | async }"
-></ng-container>
+>
+</ng-container>
+
 
 
 <ng-template #inputTpl>
@@ -9,7 +11,7 @@
     [name]="name"
     [type]="field.attrs.type || 'text'"
     [formControl]="formControl"
-    class="form-control {{ classes }}"
+    class="form-control {{ classes }} mb-3"
     [class.is-invalid]="invalid"
     [placeholder]="field.attrs.placeholder ? (field.attrs.placeholder ) : ''"
     [autocomplete]="field.attrs.autocomplete"

@@ -7,12 +7,12 @@ import { extractTouchedChanges } from '../../utils/form-changes.util';
 import { FormConstructor } from '../../interfaces/form-constructor.interface';
 
 @Component({
-  selector: 'ms-field-input',
-  templateUrl: './field-input.component.html',
-  styleUrls: ['./field-input.component.scss'],
+  selector: 'ms-field-input-dev',
+  templateUrl: './field-input-dev.component.html',
+  styleUrls: ['./field-input-dev.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FieldInputComponent extends FieldComponent implements OnInit {
+export class FieldInputDevComponent extends FieldComponent implements OnInit {
   /**
    * Detect touched changed
    */
@@ -32,9 +32,9 @@ export class FieldInputComponent extends FieldComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('INPUT*******', this);
     this.touchedChanged$ = extractTouchedChanges(this.formControl).pipe(tap(() => this.changeDetectorRef.markForCheck()));
     this.valueChanges$ = this.formControl.valueChanges.pipe(tap(() => this.changeDetectorRef.markForCheck()));
 
+    console.log('INPUT--------------', this)
   }
 }

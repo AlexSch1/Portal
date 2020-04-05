@@ -46,6 +46,7 @@ export enum FormFieldType {
   Checkbox = 'checkbox',
   Date = 'date',
   Input = 'input',
+  InputDev = 'input-dev',
   InputMask = 'input_mask',
   InputRange = 'input_range',
   InputUCFirst = 'input_ucfirst',
@@ -62,7 +63,8 @@ export enum FormFieldType {
 export enum FormFieldWrapperType {
   Default = 'default',
   Empty = 'empty',
-  None = 'none'
+  None = 'none',
+  Dev = 'dev',
 }
 
 /**

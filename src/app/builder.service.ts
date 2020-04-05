@@ -10,46 +10,30 @@ export class BuilderService {
 
     private config: FormConfig = {
         id: 'form-1',
-        fields: [{
-            key: 'q-8',
-            type:  FormFieldType.Radio,
-            label: 'this.form.get().value',
-            attrs: {
-              placeholder: '',
-              id: '',
-              name: ''
-            },
-          },
+        fields: [
           {
-            key: 'q-1',
-            type:  FormFieldType.Radio,
-            label: 'this.form.get().value',
+            key: 'recovery_type',
+            type: FormFieldType.Radio,
+            label: 'demo.fields.recoveryType',
             attrs: {
-              placeholder: '',
-              id: '',
-              name: ''
+              placeholder: 'demo.fields.recoveryType',
+              id: 'RecoveryMethod',
+              name: 'data[Recovery][method]'
             },
+            validators: [],
+            options: [
+              {
+                label: 'demo.fields.recoverySelf',
+                value: 'self'
+              },
+              {
+                label: 'demo.fields.recoveryWithPhone',
+                value: 'sms'
+              }
+            ],
+            defaultValue: 'self'
           },
-          {
-            key: 'q-13',
-            type:  FormFieldType.Radio,
-            label: 'this.form.get().value',
-            attrs: {
-              placeholder: '',
-              id: '',
-              name: ''
-            },
-          },
-          {
-            key: 'q-10',
-            type:  FormFieldType.Radio,
-            label: 'this.form.get().value',
-            attrs: {
-              placeholder: '',
-              id: '',
-              name: ''
-            },
-          }
+          
         ],
     }
     private configBuilderSubject = new BehaviorSubject<FormConfig>(this.config);
@@ -60,13 +44,13 @@ export class BuilderService {
         console.log(config)
         if (!config.key) {
             let keys = this.config.fields.map((item) => {
-                return item.key
+                return item
             })
             console.log('+++', keys.sort((a: any, b: any) => {
                 if (b < a) {
-                    return 1
-                } else if (b > a) {
                     return -1
+                } else if (b > a) {
+                    return 1
                 } else {
                     return 0
                 }
@@ -88,5 +72,9 @@ export class BuilderService {
         
         // this.configBuilderSubject.next(this.config)
     }
+
+
+
+    
 
 }

@@ -6,12 +6,13 @@ import { WrapperComponent } from '../../interfaces/form.interface';
 import { extractTouchedChanges } from '../../utils/form-changes.util';
 
 @Component({
-  selector: 'ek-field-wrapper',
-  templateUrl: './field-wrapper.component.html',
-  styleUrls: ['./field-wrapper.component.scss'],
+  selector: 'ek-field-wrapper-dev',
+  templateUrl: './field-wrapper-dev.component.html',
+  styleUrls: ['./field-wrapper-dev.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FieldWrapperComponent extends WrapperComponent implements OnDestroy, OnInit {
+export class FieldWrapperDevComponent extends WrapperComponent implements OnDestroy, OnInit {
+  edit: boolean = true;
   /**
    * Form host
    */
@@ -27,6 +28,7 @@ export class FieldWrapperComponent extends WrapperComponent implements OnDestroy
   }
 
   ngOnInit(): void {
+    // console.log('WRAP*******', this);
     this.subscription.add(
       extractTouchedChanges(this.formControl).subscribe(() => {
         this.changeDetectorRef.markForCheck();
