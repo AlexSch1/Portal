@@ -28,7 +28,7 @@ export class FieldWrapperDevComponent extends WrapperComponent implements OnDest
   }
 
   ngOnInit(): void {
-    // console.log('WRAP*******', this);
+    console.log('WRAP*******', this);
     this.subscription.add(
       extractTouchedChanges(this.formControl).subscribe(() => {
         this.changeDetectorRef.markForCheck();

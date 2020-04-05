@@ -261,9 +261,6 @@ export class BaseFormConstructor implements FormConstructor {
   ): void {
     // debugger
     if (field.key === 'title2') {
-      const fieldRef = this.getComponent(field, formConfig, viewContainer);
-  
-      this.setComponentProps(fieldRef, field, formConfig, formGroup);
 
     } else {
       const wrapperRef = this.getWrapperComponent(field, formConfig, viewContainer, index);

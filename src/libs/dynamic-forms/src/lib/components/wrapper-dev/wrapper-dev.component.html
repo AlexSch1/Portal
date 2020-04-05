@@ -1,20 +1,11 @@
 <div class="form-group">
 
 
-  <div *ngIf="edit">
-    <ng-container *ngTemplateOutlet="conent">
-      123
-    </ng-container>
-  </div>
 
-
-    <ng-template msFormHost #conent></ng-template>
+    <ng-template  msFormHost ></ng-template>
 
 
 
-  <ng-template #prev>
-    123
-  </ng-template>
      
   <button (click)="add()">Добавить радио</button>
   <button (click)="done()">Готово</button>
