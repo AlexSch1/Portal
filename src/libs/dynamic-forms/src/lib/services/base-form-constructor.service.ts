@@ -60,14 +60,15 @@ export class BaseFormConstructor implements FormConstructor {
 
   renderControlsDev(formConfig: FormConfig, formGroup: FormGroup, viewContainer: ViewContainerRef): void {
     let componentFactory;
-    if (formConfig.dev) {
-      componentFactory = this.componentFactoryResolver.resolveComponentFactory(WrapperDevComponent);
-      const wrapRef: any = viewContainer.createComponent(componentFactory);
-      const viewContainerWrap = wrapRef.instance.formHost;
-      viewContainer = viewContainerWrap.viewContainerRef;
-      this.setGroupWrapperProps(wrapRef,null, formConfig, formGroup, null)
-    }
+    // if (formConfig.dev) {
+    //   componentFactory = this.componentFactoryResolver.resolveComponentFactory(WrapperDevComponent);
+    //   const wrapRef: any = viewContainer.createComponent(componentFactory);
+    //   const viewContainerWrap = wrapRef.instance.formHost;
+    //   viewContainer = viewContainerWrap.viewContainerRef;
+    //   this.setGroupWrapperProps(wrapRef,null, formConfig, formGroup, null)
+    // }
 
+    return
 
     formConfig.fields.forEach((field, index) => {
       
@@ -111,7 +112,6 @@ export class BaseFormConstructor implements FormConstructor {
             this.removeGroupFieldComponent(field, formConfig, formGroup, viewContainer);
           }
         } else {
-          // this.removeGroupFieldComponent(field, formConfig, formGroup, viewContainer);
           this.createGroupFieldComponent(field, formConfig, formGroup, viewContainer);
         }
       } else if (field.type !== FormFieldType.Hidden) {
@@ -122,13 +122,14 @@ export class BaseFormConstructor implements FormConstructor {
             this.removeFieldComponent(field, formConfig, formGroup, viewContainer);
           }
         } else {
-          // console.log('2-------------', formGroup )
           // if (bol) {
-            if (field.key === 'title22') {
-              this.createControl(field, formGroup);
-            }
+            // if (field.key === 'title22') {
+            //   this.createControl(field, formGroup);
+            // }
           // }
           // field.key = 'q' + index
+         
+          // this.createFieldComponent(field, formConfig, formGroup, viewContainer);
           this.createFieldComponent(field, formConfig, formGroup, viewContainer);
         }
       }
@@ -264,10 +265,10 @@ export class BaseFormConstructor implements FormConstructor {
 
     } else {
       const wrapperRef = this.getWrapperComponent(field, formConfig, viewContainer, index);
-      // const fieldRef = this.getComponent(field, formConfig, wrapperRef.instance.formHost.viewContainerRef);
+      const fieldRef = this.getComponent(field, formConfig, wrapperRef.instance.formHost.viewContainerRef);
   
       this.setComponentProps(wrapperRef, field, formConfig, formGroup);
-      // this.setComponentProps(fieldRef, field, formConfig, formGroup);
+      this.setComponentProps(fieldRef, field, formConfig, formGroup);
     }
     
   }

@@ -1,8 +1,35 @@
 <div class="form-group">
 
+    
 
 
     <ng-template  msFormHost ></ng-template>
+
+    <ng-container *ngIf="edit; else prev">
+      <div  *ngFor="let item of formConfig.fields">
+        <ek-field-wrapper-dev2
+          [field]="item"
+          [formConfig]="formConfig"
+          [form]="form"
+          [formControls]="form.controls[item.key]"
+        ></ek-field-wrapper-dev2>
+      </div>
+    </ng-container>
+
+    
+
+    <ng-template  #prev >
+        <p>
+          {{form.controls.title.value}}
+        </p>
+        <div *ngFor="let item of formConfig.fields; let i=index">
+          <p>
+            {{i}}
+            {{form.controls[item.key].value}}
+          </p>
+        </div>
+
+    </ng-template>
 
 
 

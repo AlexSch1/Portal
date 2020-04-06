@@ -16,10 +16,14 @@ import {
   OnInit,
   ViewChild,
   ComponentFactoryResolver,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ViewChildren,
+  TemplateRef
 } from '@angular/core';
 import { FormConstructor } from 'src/libs/dynamic-forms/src';
 import { takeUntil, takeWhile } from 'rxjs/operators';
+
+import { v4 as uuid } from 'uuid';
 
 @Component({
   selector: 'app-root',
@@ -34,9 +38,13 @@ export class AppComponent implements OnInit {
   };
   formConfig = fieldRadio;
 
-  @ViewChild(HostDirective, { static: true }) container: HostDirective;
-  private subscription = new Subscription();
+  form: any = new FormGroup({});
 
+  refs = [];
+
+  @ViewChild(HostDirective, {static: true}) container: HostDirective;
+  private subscription = new Subscription();
+  
 
   constructor(
     private configBuilderService: BuilderService,
@@ -46,7 +54,11 @@ export class AppComponent implements OnInit {
   ) {}
 
 
-  survey_1() {}
+  survey_1() {
+    this.formConstructor.registerControls(this.formConfig, this.form);
+    this.formConstructor.renderControls(this.formConfig, this.form, this.container.viewContainerRef);
+
+  }
 
   save() {
   }
@@ -57,11 +69,11 @@ export class AppComponent implements OnInit {
     this.parentformConfig.fields[newKey] = new RadioModelDevelop(
       newKey,
       true,
-      // FormFieldWrapperType.Dev,
       [
         {
           key: 'title',
-          type: FormFieldType.Input,wrapper: FormFieldWrapperType.Dev,
+          type: FormFieldType.Input,
+          wrapper: FormFieldWrapperType.Dev,
           label: 'Название Вопроса',
           attrs: {
             type: 'text',
@@ -93,12 +105,10 @@ export class AppComponent implements OnInit {
     this.formConstructor.registerControls(this.parentformConfig.fields[newKey], this.parentForm[newKey]);
     this.formConstructor.renderControlsDev(this.parentformConfig.fields[newKey], this.parentForm[newKey], this.container.viewContainerRef);
 
-    console.log('*******', this.parentformConfig);
-    console.log('*******', this.parentForm);
   }
 
 
   ngOnInit() {
-    this.addNewRadioField();
+    this.survey_1();
   }
 }

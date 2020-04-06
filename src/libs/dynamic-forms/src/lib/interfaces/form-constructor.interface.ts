@@ -10,6 +10,9 @@ export abstract class FormConstructor {
    * @param formGroup FormGroup
    */
   abstract registerControls(formConfig: FormConfig, formGroup: FormGroup): void;
+  abstract registerOne(field: any, formGroup: FormGroup): void;
+
+  abstract renderControlsDev(formConfig: FormConfig, formGroup: FormGroup, view: any): void;
 
   /**
    * Render controls

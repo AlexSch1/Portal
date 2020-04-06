@@ -18,7 +18,7 @@ export class WrapperDevComponent extends WrapperComponent implements OnDestroy, 
   /**
    * Form host
    */
-  @ViewChild(FormHostDirective, { static: true }) formHost?: FormHostDirective;
+  @ViewChild(FormHostDirective, { static: true }) formHost: FormHostDirective;
 
   /**
    * Subscription
@@ -31,10 +31,12 @@ export class WrapperDevComponent extends WrapperComponent implements OnDestroy, 
 
   ngOnInit(): void {
     console.log('*******', this);
+    console.log('*******', this.form.controls.ti);
   }
 
   done() {
-    console.log('*******', this);
+    // console.log('*******', this);
+    this.edit = !this.edit;
   }
 
   add() {

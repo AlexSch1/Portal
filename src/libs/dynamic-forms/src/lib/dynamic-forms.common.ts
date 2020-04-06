@@ -17,8 +17,9 @@ import { InputMaskDirective } from './directives/input-mask.directive';
 import { InputRangeDirective } from './directives/input-range.directive';
 import { InputUcfirstDirective } from './directives/input-ucfirst.directive';
 import { FieldWrapperDevComponent } from './components/field-wrapper-dev/field-wrapper-dev.component';
+import { FieldWrapperDev2Component } from './components/field-wrapper-dev2/field-wrapper-dev2.component';
 
-export const formsLiteComponents: any[] = [FormComponent];
+export const formsLiteComponents: any[] = [FormComponent, FieldWrapperDev2Component];
 
 export const formsLiteEntryComponents: any[] = [
   FieldCheckboxComponent,
@@ -35,6 +36,7 @@ export const formsLiteEntryComponents: any[] = [
   FieldWrapperDevComponent,
   FieldInputDevComponent,
   WrapperDevComponent,
+  FieldWrapperDev2Component,
 ];
 
 export const formsLiteDirectives: any[] = [FormHostDirective, InputMaskDirective, InputRangeDirective, InputUcfirstDirective];
